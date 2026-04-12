@@ -13,6 +13,7 @@ public class Tree <D> {
     /**
      * Creates a new tree and its root node. Stores the argument in the root node.
      *
+     * @param rootData the data to store in the root node
      */
     public Tree(D rootData) {
         root = new TreeNode<D>(rootData, null);
@@ -26,6 +27,17 @@ public class Tree <D> {
         return root;
     }
 
+    /**
+     * Traverses the tree in breadth-first order and prints each node to standard output.
+     * <p>
+     * Starting from the root, this method visits all nodes at the current depth level
+     * before moving on to nodes at the next depth level. Traversal is implemented
+     * iteratively using a FIFO queue: the root is enqueued first, then on each
+     * iteration a node is dequeued, printed, and all of its children are enqueued.
+     * <p>
+     * If the tree has no root, a message is printed and the method returns without
+     * performing any traversal.
+     */
     public void breadthFirst() {
         if (root == null) {
             System.out.println("The tree is empty");
