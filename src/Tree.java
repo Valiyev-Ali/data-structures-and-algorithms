@@ -1,4 +1,6 @@
+import java.util.Deque;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Queue;
 
 /**
@@ -57,6 +59,49 @@ public class Tree <D> {
         System.out.println();
     }
 
+    public void preOrder() {
+        if (root == null) {
+            System.out.println("The tree is empty");
+            return;
+        }
+        System.out.println("Preorder:");
+        Deque<TreeNode<D>> preOrderStack = new LinkedList<TreeNode<D>>();
+        preOrderStack.offer(root);
+        TreeNode<D> currentNode;
+        while (!preOrderStack.isEmpty()) {
+            currentNode = preOrderStack.pop();
+            System.out.print(" " + currentNode.toString());
+            for (int i = currentNode.getChildren().size() - 1; i >= 0; i--) {
+                preOrderStack.push(currentNode.getChildren().get(i));
+            }
+        }
+        System.out.println();
+    }
+
+    public void postOrder() {
+        if (root == null) {
+            System.out.println("The tree is empty");
+            return;
+        }
+        System.out.println("Postorder:");
+        List<TreeNode<D>> postOrderList = new LinkedList<TreeNode<D>>();
+        postOrder(root, postOrderList);
+        for (TreeNode<D> child : postOrderList) {
+            System.out.print(" " + child.toString());
+        }
+        System.out.println();
+    }
+
+    private void postOrder(TreeNode<D> currentNode, List<TreeNode<D>> visitedList) {
+        if (currentNode == null) {
+            return;
+        }
+        for (TreeNode<D> child : currentNode.getChildren()) {
+            postOrder(child, visitedList);
+        }
+        visitedList.add(currentNode);
+    }
+
     public static void main(String[] arg) {
         Tree<Integer> numbersTree = new Tree<Integer>(1);
         TreeNode<Integer> parent = new TreeNode<Integer>(2, numbersTree.getRootNode());
@@ -66,5 +111,7 @@ public class Tree <D> {
         parent = new TreeNode<Integer>(4, numbersTree.getRootNode());
         new TreeNode(7, parent);
         numbersTree.breadthFirst();
+        numbersTree.preOrder();
+        numbersTree.postOrder();
     }
 }
