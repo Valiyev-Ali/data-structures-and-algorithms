@@ -1,4 +1,11 @@
 public class ParenthesisMatcher {
+
+    /**
+     * Checks whether the given character is a type of parenthesis symbol.
+     *
+     * @param character the character to check
+     * @return true if the character is an opening or closing parenthesis symbol; false otherwise
+     */
     private static boolean isParenthesis(String character) {
         if (character.equals("{") || character.equals("}") ||
                 character.equals("[") || character.equals("]") ||
@@ -8,6 +15,12 @@ public class ParenthesisMatcher {
         return false;
     }
 
+    /**
+     * Checks whether the given character is a closing parenthesis symbol.
+     *
+     * @param character the character to check
+     * @return true if the character is a closing parenthesis; false otherwise
+     */
     private static boolean isClosingParenthesis(String character) {
         if (character.equals("}") || character.equals("]") ||
                 character.equals(")")) {
@@ -16,6 +29,13 @@ public class ParenthesisMatcher {
         return false;
     }
 
+    /**
+     * Determines whether two parenthesis symbols form a matching pair.
+     *
+     * @param first the opening parenthesis
+     * @param second the closing parenthesis
+     * @return true if the two symbols match; false otherwise
+     */
     private static boolean areParenthesisMatching(String first, String second) {
         if ((first.equals("{") && second.equals("}")) || (first.equals("[") && second.equals("]")) ||
                 (first.equals("(") && second.equals(")"))) {
