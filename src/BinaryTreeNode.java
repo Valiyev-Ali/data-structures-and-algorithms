@@ -5,7 +5,7 @@ public class BinaryTreeNode <D>{
     /**
      *The data associated with this node.
      */
-    private final D data;
+    private D data;
     /**
      * Reference to the parent of this node.
      */
@@ -37,7 +37,7 @@ public class BinaryTreeNode <D>{
      * @param leftData the data to be stored in the left child node
      */
     public BinaryTreeNode<D> setLeftChild(D leftData) {
-        if (left != null) {
+        if (left == null) {
             left = new BinaryTreeNode<D>(leftData);
             left.parent = this;
             return left;
@@ -55,7 +55,7 @@ public class BinaryTreeNode <D>{
      * @param rightData the data to be stored in the right child node
      */
     public BinaryTreeNode<D> setRightChild(D rightData) {
-        if (right != null) {
+        if (right == null) {
             right = new BinaryTreeNode<D>(rightData);
             right.parent = this;
             return right;
@@ -63,8 +63,35 @@ public class BinaryTreeNode <D>{
         return null;
     }
 
+    /**
+     * Attempts to remove the argument as a child of this node.
+     * Does nothing fi the argument is {@code null} or does not point to a child of this node.
+     * If the argument is a child of this node, it's parent field will be set to null
+     * @param child
+     * @return
+     */
+    public boolean removeChild (BinaryTreeNode<D> child) {
+        if (child != null) {
+            if (child == left) {
+                left.parent = null;
+                left = null;
+                return true;
+            }
+            else if (child == right) {
+                right.parent = null;
+                right = null;
+                return true;
+            }
+        }
+        return false;
+    }
+
     public BinaryTreeNode<D> getParent() {
         return parent;
+    }
+
+    public void setData(D data) {
+        this.data = data;
     }
 
     @Override
