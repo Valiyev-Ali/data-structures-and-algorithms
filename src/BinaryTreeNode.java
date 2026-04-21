@@ -27,6 +27,18 @@ public class BinaryTreeNode <D>{
         this.data = data;
     }
 
+    /**
+     * Returns the data stored in this node.
+     * @return the data stored in this node
+     */
+    public D getData() {
+        return data;
+    }
+
+    /**
+     * Returns the left child of this node, or {@code null} if none exists.
+     * @return the left child node
+     */
     public BinaryTreeNode<D> getLeft() {
         return left;
     }
@@ -45,6 +57,10 @@ public class BinaryTreeNode <D>{
         return null;
     }
 
+    /**
+     * Returns the right child of this node, or {@code null} if none exists.
+     * @return the right child node
+     */
     public BinaryTreeNode<D> getRight() {
         return right;
     }
@@ -86,10 +102,18 @@ public class BinaryTreeNode <D>{
         return false;
     }
 
+    /**
+     * Returns the parent of this node, or {@code null} if this is the root.
+     * @return the parent node
+     */
     public BinaryTreeNode<D> getParent() {
         return parent;
     }
 
+    /**
+     * Replaces the data stored in this node.
+     * @param data the new data value
+     */
     public void setData(D data) {
         this.data = data;
     }
