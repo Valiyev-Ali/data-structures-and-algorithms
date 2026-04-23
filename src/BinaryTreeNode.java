@@ -111,6 +111,14 @@ public class BinaryTreeNode <D>{
     }
 
     /**
+     * Sets the parent of this node to the argument.
+     * @param newParent the node to set as parent, or {@code null} to mark this node as root
+     */
+    protected void setParent (BinaryTreeNode<D> newParent) {
+        parent = newParent;
+    }
+
+    /**
      * Replaces the data stored in this node.
      * @param data the new data value
      */
