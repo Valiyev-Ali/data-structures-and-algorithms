@@ -87,6 +87,13 @@ public class BinarySearchTree <D extends Comparable<D>> {
         }
     }
 
+    /**
+     * Searches for a value in the binary search tree.
+     * Prints a message indicating whether the value was found.
+     * @param query the value to search for
+     * @return {@code true} if found, {@code false} if the tree is empty, {@code query} is {@code null},
+     *         or the value is not present
+     */
     public boolean search(D query) {
         if (internalTree == null || query == null) {
             System.out.println(query + " not found");
@@ -96,6 +103,13 @@ public class BinarySearchTree <D extends Comparable<D>> {
             return search(query, internalTree.getRootNode());
         }
     }
+    /**
+     * Recursively searches for {@code query} starting from {@code currNode}.
+     * Prints a message when the value is found or confirmed absent.
+     * @param query    the value to find
+     * @param currNode the current node to compare against
+     * @return {@code true} if {@code query} exists in the subtree rooted at {@code currNode}
+     */
     private boolean search(D query, BinaryTreeNode<D> currNode) {
         int compResult = query.compareTo(currNode.getData());
         if (compResult == 0) {
@@ -112,6 +126,12 @@ public class BinarySearchTree <D extends Comparable<D>> {
         return false;
     }
 
+    /**
+     * Removes the first occurrence of {@code value} from the binary search tree.
+     * Prints a message indicating whether the removal succeeded.
+     * @param value the value to remove
+     * @return {@code true} if the value was found and removed, {@code false} otherwise
+     */
     public boolean remove(D value) {
         if (internalTree == null || value == null) {
             System.out.println(value + " not found");
@@ -129,9 +149,21 @@ public class BinarySearchTree <D extends Comparable<D>> {
         }
     }
 
+    /**
+     * Returns the node containing {@code value}, or {@code null} if not found.
+     * @param value the value to locate
+     * @return the matching node, or {@code null}
+     */
     private BinaryTreeNode<D> findNode (D value) {
         return findNode(internalTree.getRootNode(), value);
     }
+
+    /**
+     * Recursively searches the subtree rooted at {@code currentNode} for a node containing {@code value}.
+     * @param currentNode the root of the subtree to search
+     * @param value       the value to locate
+     * @return the matching node, or {@code null} if not found
+     */
     private BinaryTreeNode<D> findNode (BinaryTreeNode<D> currentNode, D value) {
         int compResult = value.compareTo(currentNode.getData());
         if (compResult == 0) {
@@ -146,14 +178,70 @@ public class BinarySearchTree <D extends Comparable<D>> {
         return null;
     }
 
-//    private void remove(BinaryTreeNode<D> node) {
-//        if((node.getLeft() == null) && (node.getRight() == null)) {
-//            if (internalTree.getRootNode() == node) {
-//
-//            }
-//        }
-//
-//    }
+    /**
+     * Removes {@code node} from the tree, rewiring parent and child pointers to preserve BST structure.
+     * Handles four cases: leaf node, only left child, only right child, and two children.
+     * When the node has two children it is replaced by its in-order successor.
+     * @param node the node to remove
+     */
+    private void remove(BinaryTreeNode<D> node) {
+        // case 1: leaf node — simply detach from parent
+        if (node.getLeft() == null && node.getRight() == null) {
+            if (internalTree.getRootNode() == node) {
+                internalTree = null;
+            }
+            else {
+                node.getParent().removeChild(node);
+            }
+        }
+        // case 2: only left child — promote the left child into node's position
+        else if (node.getRight() == null) {
+            BinaryTreeNode<D> parentNode = node.getParent();
+            BinaryTreeNode<D> childNode = node.getLeft();
+            if (parentNode == null) {
+                internalTree.setRootNode(childNode);
+                childNode.setParent(null);
+            }
+            else if (node == parentNode.getLeft()) {
+                parentNode.removeChild(node);
+                parentNode.setLeftChild(childNode);
+                childNode.setParent(parentNode);
+            }
+            else {
+                parentNode.removeChild(node);
+                parentNode.setRightChild(childNode);
+                childNode.setParent(parentNode);
+            }
+        }
+        // case 3: only right child — promote the right child into node's position
+        else if (node.getLeft() == null) {
+            BinaryTreeNode<D> parentNode = node.getParent();
+            BinaryTreeNode<D> childNode = node.getRight();
+            if (parentNode == null) {
+                internalTree.setRootNode(childNode);
+                childNode.setParent(null);
+            }
+            else if (node == parentNode.getLeft()) {
+                parentNode.removeChild(node);
+                parentNode.setLeftChild(childNode);
+                childNode.setParent(parentNode);
+            }
+            else {
+                parentNode.removeChild(node);
+                parentNode.setRightChild(childNode);
+                childNode.setParent(parentNode);
+            }
+        }
+        // case 4: two children — overwrite with in-order successor's data, then remove the successor
+        else {
+            BinaryTreeNode<D> successor = node.getRight();
+            while (successor.getLeft() != null) {
+                successor = successor.getLeft();
+            }
+            node.setData(successor.getData());
+            remove(successor);
+        }
+    }
 
     public static void main(String[] args) {
         BinarySearchTree<Integer> firstBst = new BinarySearchTree<Integer>();
