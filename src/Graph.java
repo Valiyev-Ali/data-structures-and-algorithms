@@ -1,6 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 public class Graph <D> {
 
@@ -26,12 +24,41 @@ public class Graph <D> {
         return true;
     }
 
+    public void breadthFirst(Vertex<D> startVertex) {
+        if ((startVertex == null) || !internalGraph.containsKey(startVertex)) {
+            return;
+        }
+        Queue<Vertex<D>> explorationQueue = new LinkedList<Vertex<D>>();
+        List<Vertex<D>> visited = new ArrayList<Vertex<D>>();
+        Vertex<D> currVertex;
+        explorationQueue.offer(startVertex);
+        visited.addLast(startVertex);
+
+        while (!explorationQueue.isEmpty()) {
+            currVertex = explorationQueue.poll();
+            System.out.println(" " + currVertex.toString());
+            for(Vertex<D> nextVertex : internalGraph.get(currVertex)) {
+                if (visited.contains(nextVertex)) {
+                    continue;
+                }
+                explorationQueue.offer(nextVertex);
+                visited.addLast(nextVertex);
+            }
+
+        }
+    }
+
     public static void main (String[] args) {
         Graph<Character> myGraph = new Graph<Character>();
 
-        Vertex<Character> temp1 = new Vertex<Character>("A");
-        Vertex<Character> temp2 = new Vertex<Character>("B");
-        myGraph.addEdge(temp1, temp2);
+        Vertex<Character> vertexA = new Vertex<Character>('A');
+        Vertex<Character> vertexB = new Vertex<Character>('A');
+        Vertex<Character> vertexC = new Vertex<Character>('A');
+        Vertex<Character> vertexD = new Vertex<Character>('A');
+        Vertex<Character> vertexE = new Vertex<Character>('A');
+        Vertex<Character> vertexF = new Vertex<Character>('A');
+
+        myGraph.addEdge(vertexA, vertexB);
 
         temp2 = new Vertex<Character>("D");
         myGraph.addEdge(temp1, temp2);
@@ -49,6 +76,9 @@ public class Graph <D> {
         temp1 = new Vertex<Character>("C");
         myGraph.addEdge(temp1, temp2);
 
+        System.out.print("Breadth First: ");
+        myGraph.breadthFirst(vertexF);
+        System.out.println();
 
     }
 }

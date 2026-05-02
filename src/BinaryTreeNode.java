@@ -57,6 +57,10 @@ public class BinaryTreeNode <D>{
         return null;
     }
 
+    protected void setLeftChild (BinaryTreeNode<D> newNode) {
+        left = newNode;
+    }
+
     /**
      * Returns the right child of this node, or {@code null} if none exists.
      * @return the right child node
@@ -77,6 +81,10 @@ public class BinaryTreeNode <D>{
             return right;
         }
         return null;
+    }
+
+    protected void setRightChild (BinaryTreeNode<D> newNode) {
+        right = newNode;
     }
 
     /**

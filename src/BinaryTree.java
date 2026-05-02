@@ -27,6 +27,10 @@ public class BinaryTree <D> {
         return root;
     }
 
+    public void setRootNode(BinaryTreeNode<D> newRootNode) {
+        root = newRootNode;
+    }
+
     /**
      * Prints all values using breadth-first (level-order) traversal.
      * Prints a message if the tree is empty.

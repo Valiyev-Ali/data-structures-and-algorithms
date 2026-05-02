@@ -73,6 +73,7 @@ public class BinarySearchTree <D extends Comparable<D>> {
         else {
             internalTree.breadthFirst();
         }
+        System.out.println();
     }
 
     /**
@@ -85,6 +86,7 @@ public class BinarySearchTree <D extends Comparable<D>> {
         } else {
             internalTree.depthFirst();
         }
+        System.out.println();
     }
 
     /**
@@ -243,6 +245,8 @@ public class BinarySearchTree <D extends Comparable<D>> {
         }
     }
 
+
+
     public static void main(String[] args) {
         BinarySearchTree<Integer> firstBst = new BinarySearchTree<Integer>();
         firstBst.add(3);
@@ -256,13 +260,16 @@ public class BinarySearchTree <D extends Comparable<D>> {
 
         System.out.println("\nSecond Tree:");
         BinarySearchTree<Integer> secondtBst = new BinarySearchTree<Integer>();
-        secondtBst.add(3);
-        secondtBst.add(4);
         secondtBst.add(5);
-        secondtBst.add(6);
+        secondtBst.add(3);
         secondtBst.add(7);
+        secondtBst.add(4);
+        secondtBst.add(6);
         secondtBst.add(8);
         secondtBst.breadthFirst();
         secondtBst.depthFirst();
+
+        secondtBst.remove(5);
+        secondtBst.breadthFirst();
     }
 }
